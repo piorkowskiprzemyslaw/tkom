@@ -24,6 +24,7 @@ Syntax::~Syntax() { }
  */
 void Syntax::buildTree() {
 	runShutingYardAlgorithm();
+	rpnToAST();
 }
 
 /*

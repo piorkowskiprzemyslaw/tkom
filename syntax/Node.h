@@ -16,18 +16,19 @@
 class Node {
 private:
 	std::weak_ptr<Node> parent;
-	std::shared_ptr<Node> leftChild;
-	std::shared_ptr<Node> rightChild;
 	std::shared_ptr<Token> token;
-	unsigned int id;
-	unsigned int leftChildrenPlaces;
+
+protected:
+	void setParent(std::shared_ptr<Node> newParent);
+	const std::shared_ptr<Token> getToken() const;
 
 public:
-	Node(std::shared_ptr<Node> parent, std::shared_ptr<Token> token);
-	~Node();
-	void nullable();
-	void first();
-	void last();
-	void follow();
+	Node(std::shared_ptr<Token> token, std::shared_ptr<Node> parent);
+	virtual ~Node();
+
+	virtual void nullable() const = 0;
+	virtual void first() const  = 0;
+	virtual void last() const = 0;
+	virtual void follow() const = 0;
 };
 #endif /* NODE_H_ */
