@@ -10,6 +10,7 @@
 #include <fstream>
 #include <scanner/Scanner.h>
 #include <scanner/ScannerException.h>
+#include <syntax/SyntaxException.h>
 
 extern std::string getInputTestDir(int number);
 
@@ -17,7 +18,7 @@ void syntaxTest(){
 	std::ifstream ifile;
 	std::string regex;
 
-	for(int i = 4; i < 5 ; ++i){
+	for(int i = 1; i < 11 ; ++i){
 		ifile.open(getInputTestDir(i));
 
 		std::getline(ifile,regex);
@@ -33,7 +34,14 @@ void syntaxTest(){
 		}
 
 		Syntax syntax(scanner.getTokens());
-		syntax.buildTree();
+		try{
+			syntax.buildTree();
+		} catch ( SyntaxException & e) {
+			std::cout << e.what() << std::endl;
+			ifile.close();
+			regex.clear();
+			continue;
+		}
 
 		for(auto token : syntax.getRPNTokens()){
 			std::cout << *token << " ";

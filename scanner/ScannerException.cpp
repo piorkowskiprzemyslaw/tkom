@@ -7,11 +7,12 @@
 
 #include <scanner/ScannerException.h>
 
-ScannerException::ScannerException(const std::string & msg) noexcept : msg(msg) { }
-
-ScannerException::~ScannerException() noexcept {
-	// TODO Auto-generated destructor stub
+ScannerException::ScannerException(const std::string & msg) noexcept : msg(msg) {
+	this->msg = "ScannerException : ";
+	this->msg += msg;
 }
+
+ScannerException::~ScannerException() noexcept { }
 
 const char* ScannerException::what() const noexcept {
 	return msg.c_str();

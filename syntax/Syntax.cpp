@@ -64,6 +64,11 @@ void Syntax::runShutingYardAlgorithm() {
 
 		if( token->isClosingParenthesis() ) {
 			while( !( stack.top()->isOpeningParenthesis() ) ){
+
+				if(stack.empty()){
+					throw SyntaxException("Opening parenthesis didn't found");
+				}
+
 				rpn.push_back(stack.top());
 				stack.pop();
 			}
@@ -74,6 +79,11 @@ void Syntax::runShutingYardAlgorithm() {
 	}
 
 	while( !stack.empty() ){
+
+		if ( stack.top()->isOpeningParenthesis() ){
+			throw SyntaxException("Closing parenthesis didn't found");
+		}
+
 		rpn.push_back(stack.top());
 		stack.pop();
 	}

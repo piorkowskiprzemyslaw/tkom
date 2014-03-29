@@ -15,6 +15,7 @@
 
 #include <util/Token.h>
 #include <syntax/Tree.h>
+#include <syntax/SyntaxException.h>
 
 /*
  * Klasa odpowiedzialna za kontrolowanie poprawności składni przekazanych

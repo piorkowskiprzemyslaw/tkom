@@ -16,7 +16,7 @@
  */
 class ScannerException: public std::exception {
 private:
-	const std::string msg;
+	std::string msg;
 
 public:
 	explicit ScannerException(const std::string & msg) noexcept;
