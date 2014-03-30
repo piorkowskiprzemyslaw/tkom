@@ -12,20 +12,22 @@
 
 std::string getInputTestDir(int number){
 	std::string path("/home/przemek/Dropbox/studia/przedmioty/sem_6/TKOM/projekt/testy/test");
+	std::string path1( "C:\\Users\\Przemek\\Dropbox\\studia\\przedmioty\\sem_6\\TKOM\\projekt\\testy\\test" );
 	std::string entirePath;
 	char num[32];
 	sprintf(num, "%d", number);
-	entirePath = path + num;
+	entirePath = path1 + num;
 	entirePath += ".txt";
 	return entirePath;
 }
 
 std::string getOutputTestDir(int number){
 	std::string path("/home/przemek/Dropbox/studia/przedmioty/sem_6/TKOM/projekt/testy/test");
+	std::string path1( "C:\\Users\\Przemek\\Dropbox\\studia\\przedmioty\\sem_6\\TKOM\\projekt\\testy\\test" );
 	std::string entirePath;
 	char num[32];
 	sprintf(num, "%d", number);
-	entirePath = path + num;
+	entirePath = path1 + num;
 	entirePath += "OUTPUT.txt";
 	return entirePath;
 }

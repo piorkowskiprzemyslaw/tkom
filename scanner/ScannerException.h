@@ -19,9 +19,9 @@ private:
 	std::string msg;
 
 public:
-	explicit ScannerException(const std::string & msg) noexcept;
-	virtual ~ScannerException() noexcept;
-	const char* what() const noexcept override;
+	explicit ScannerException(const std::string & msg);
+	virtual ~ScannerException();
+	const char* what() const override;
 };
 
 #endif /* SCANNEREXCEPTION_H_ */

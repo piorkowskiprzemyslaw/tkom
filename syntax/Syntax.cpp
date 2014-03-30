@@ -100,7 +100,7 @@ void Syntax::rpnToAST() {
 	for(auto it = workingList.begin() ; it != workingList.end() ; ++it ){
 
 		if(std::shared_ptr<TerminateNode> tn = std::dynamic_pointer_cast<TerminateNode>(*it) ){
-			std::cout << "After TN" << std::endl;
+			//std::cout << "After TN" << std::endl;
 			continue;
 		}
 
@@ -109,10 +109,10 @@ void Syntax::rpnToAST() {
 			oneBefore--;
 
 			if(checkWorkingListIterator(oneBefore, oon->getToken()->getCharacter())){
-				oon->addChild(*oneBefore);
-				//workingList.erase(oneBefore);
+				oon->addChild(*oneBefore, oon);
+				workingList.erase(oneBefore);
 			}
-			std::cout << "After OON" << std::endl;
+			//std::cout << "After OON" << std::endl;
 			continue;
 		}
 
@@ -125,12 +125,12 @@ void Syntax::rpnToAST() {
 			if(checkWorkingListIterator(oneBefore, ton->getToken()->getCharacter() ) &&
 			   checkWorkingListIterator(twoBefore, ton->getToken()->getCharacter() )
 			   ){
-				//ton->addLeftChild(*twoBefore);
-				//ton->addRightChild(*oneBefore);
-				//workingList.erase(twoBefore);
-				//workingList.erase(oneBefore);
+				ton->addLeftChild(*twoBefore, ton);
+				ton->addRightChild(*oneBefore, ton);
+				workingList.erase(twoBefore);
+				workingList.erase(oneBefore);
 			}
-			std::cout << "After TON" << std::endl;
+			//std::cout << "After TON" << std::endl;
 			continue;
 		}
 

@@ -7,14 +7,14 @@
 
 #include <scanner/ScannerException.h>
 
-ScannerException::ScannerException(const std::string & msg) noexcept : msg(msg) {
+ScannerException::ScannerException(const std::string & msg) : msg(msg) {
 	this->msg = "ScannerException : ";
 	this->msg += msg;
 }
 
-ScannerException::~ScannerException() noexcept { }
+ScannerException::~ScannerException() { }
 
-const char* ScannerException::what() const noexcept {
+const char* ScannerException::what() const {
 	return msg.c_str();
 }
 

@@ -20,8 +20,8 @@ public:
 	TwoOperandNode(std::shared_ptr<Token> token, std::shared_ptr<Node> parent = nullptr, std::shared_ptr<Node> leftChild = nullptr, std::shared_ptr<Node> rightChild = nullptr);
 	virtual ~TwoOperandNode();
 
-	bool addLeftChild(std::shared_ptr<Node> leftChild);
-	bool addRightChild(std::shared_ptr<Node> rightChild);
+	bool addLeftChild(std::shared_ptr<Node> leftChild, std::shared_ptr<TwoOperandNode> parent);
+	bool addRightChild(std::shared_ptr<Node> rightChild, std::shared_ptr<TwoOperandNode> parent);
 
 	void nullable() const override;
 	void first() const override;

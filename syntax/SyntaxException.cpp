@@ -10,7 +10,7 @@
 /*
  * Konstruktor.
  */
-SyntaxException::SyntaxException(const std::string & msg) noexcept {
+SyntaxException::SyntaxException(const std::string & msg) {
 	message = "SyntaxExepction : " ;
 	message += msg;
 }
@@ -23,6 +23,6 @@ SyntaxException::~SyntaxException() { }
 /*
  * Nadpisana metoda what klasy exception.
  */
-const char * SyntaxException::what() const noexcept {
+const char * SyntaxException::what() const {
 	return message.c_str();
 }

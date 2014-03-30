@@ -20,7 +20,7 @@ public:
 	OneOperandNode(std::shared_ptr<Token> token, std::shared_ptr<Node> parent = nullptr, std::shared_ptr<Node> child = nullptr);
 	virtual ~OneOperandNode();
 
-	bool addChild(std::shared_ptr<Node> child);
+	bool addChild(std::shared_ptr<Node> child, std::shared_ptr<OneOperandNode> parent);
 
 	void nullable() const override;
 	void first() const override;

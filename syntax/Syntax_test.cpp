@@ -45,11 +45,12 @@ void syntaxTest(){
 			continue;
 		}
 
+		/*
 		for(auto token : syntax.getRPNTokens()){
-			std::cout << *token << " ";
+			std::cout << (token->getCharacter()) << " ";
 		}
 		std::cout << std::endl;
-
+		*/
 		regex.clear();
 		ifile.close();
 	}

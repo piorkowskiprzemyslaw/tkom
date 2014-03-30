@@ -19,5 +19,8 @@ extern void syntaxTest();
 int main(int argc, char* argv[])
 {
 	syntaxTest();
+	
+	system( "PAUSE" );
+
     return 0;
 }

@@ -15,9 +15,9 @@ class SyntaxException: public std::exception {
 private:
 	std::string message;
 public:
-	explicit SyntaxException(const std::string & msg) noexcept;
-	virtual ~SyntaxException() noexcept;
-	const char* what() const noexcept override;
+	explicit SyntaxException(const std::string & msg);
+	virtual ~SyntaxException();
+	const char* what() const override;
 };
 
 #endif /* SYNTAXEXCEPTION_H_ */

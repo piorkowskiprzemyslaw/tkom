@@ -31,7 +31,7 @@ public:
 
 	friend std::ostream & operator<<(std::ostream & os, const Node & node)
 	{
-		os<< node.token->getCharacter();
+		os.operator<<( node.token->getCharacter().c_str());
 		return os;
 	}
 };
