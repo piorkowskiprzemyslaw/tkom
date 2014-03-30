@@ -18,7 +18,7 @@ void syntaxTest(){
 	std::ifstream ifile;
 	std::string regex;
 
-	for(int i = 1; i < 11 ; ++i){
+	for(int i = 1; i < 2 ; ++i){
 		ifile.open(getInputTestDir(i));
 
 		std::getline(ifile,regex);

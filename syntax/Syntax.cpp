@@ -24,6 +24,7 @@ Syntax::~Syntax() { }
  */
 void Syntax::buildTree() {
 	runShutingYardAlgorithm();
+	initializeWorkingList();
 	rpnToAST();
 }
 
@@ -95,7 +96,34 @@ void Syntax::runShutingYardAlgorithm() {
  * do postaci drzewa skladniowego.
  */
 void Syntax::rpnToAST() {
-	// TODO
+
+	for(auto node : workingList){
+
+		if(std::shared_ptr<TerminateNode> tn = std::dynamic_pointer_cast<TerminateNode>(node) ){
+			std::cout << "TN ";
+		}
+
+		if(std::shared_ptr<OneOperandNode> oon = std::dynamic_pointer_cast<OneOperandNode>(node) ) {
+			std::cout << "OON ";
+		}
+
+		if(std::shared_ptr<TwoOperandNode> ton = std::dynamic_pointer_cast<TwoOperandNode>(node) ){
+			std::cout << "TON ";
+		}
+
+	}
+
+	std::cout << std::endl;
+
+}
+
+/*
+ * Inicjalizuje liste roboczą odpowiedniego typu nodami.
+ */
+void Syntax::initializeWorkingList() {
+	for(auto token : rpn){
+		workingList.push_back(NodeFactory::makeNode(token));
+	}
 }
 
 /*

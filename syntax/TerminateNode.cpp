@@ -10,7 +10,7 @@
 /*
  * Konstruktor
  */
-TerminateNode::TerminateNode(std::shared_ptr<Token> token, std::shared_ptr<Node> parent = nullptr) : Node(token,parent) { }
+TerminateNode::TerminateNode(std::shared_ptr<Token> token, std::shared_ptr<Node> parent) : Node(token,parent) { }
 
 /*
  * Destruktor

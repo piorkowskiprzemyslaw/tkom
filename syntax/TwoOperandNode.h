@@ -11,13 +11,13 @@
 #include <syntax/Node.h>
 #include <memory>
 
-class TwoOperandNode: protected Node {
+class TwoOperandNode: public Node {
 private:
 	std::shared_ptr<Node> leftChild;
 	std::shared_ptr<Node> rightChild;
 
 public:
-	TwoOperandNode(std::shared_ptr<Token> token, std::shared_ptr<Node> parent, std::shared_ptr<Node> leftChild, std::shared_ptr<Node> rightChild);
+	TwoOperandNode(std::shared_ptr<Token> token, std::shared_ptr<Node> parent = nullptr, std::shared_ptr<Node> leftChild = nullptr, std::shared_ptr<Node> rightChild = nullptr);
 	virtual ~TwoOperandNode();
 
 	bool addLeftChild(std::shared_ptr<Node> leftChild);

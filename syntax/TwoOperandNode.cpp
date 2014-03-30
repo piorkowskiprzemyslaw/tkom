@@ -10,7 +10,7 @@
 /*
  * Konstruktor
  */
-TwoOperandNode::TwoOperandNode(std::shared_ptr<Token> token, std::shared_ptr<Node> parent = nullptr, std::shared_ptr<Node> leftChild = nullptr, std::shared_ptr<Node> rightChild = nullptr) : Node(token,parent) {
+TwoOperandNode::TwoOperandNode(std::shared_ptr<Token> token, std::shared_ptr<Node> parent, std::shared_ptr<Node> leftChild, std::shared_ptr<Node> rightChild) : Node(token,parent) {
 	this->leftChild = leftChild;
 	this->rightChild = rightChild;
 

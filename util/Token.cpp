@@ -37,6 +37,13 @@ Token & Token::operator=(const Token & rhs) noexcept{
 }
 
 /*
+ * Pobiera znak związany z tokenem.
+ */
+const std::string Token::getCharacter() const {
+	return character;
+}
+
+/*
  * Pobiera typ tokenu.
  */
 TokenType Token::getType() noexcept{

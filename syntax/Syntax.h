@@ -12,10 +12,15 @@
 #include <list>
 #include <memory>
 #include <stack>
+#include <vector>
 
 #include <util/Token.h>
 #include <syntax/Tree.h>
 #include <syntax/SyntaxException.h>
+#include <syntax/NodeFactory.h>
+#include <syntax/TerminateNode.h>
+#include <syntax/OneOperandNode.h>
+#include <syntax/TwoOperandNode.h>
 
 /*
  * Klasa odpowiedzialna za kontrolowanie poprawności składni przekazanych
@@ -26,9 +31,11 @@ private:
 	std::shared_ptr<Tree> tree;
 	std::list<std::shared_ptr<Token> > tokens;
 	std::list<std::shared_ptr<Token> > rpn;
+	std::list<std::shared_ptr<Node> > workingList;
 
 	void runShutingYardAlgorithm();
 	void rpnToAST();
+	void initializeWorkingList();
 
 public:
 	Syntax(const std::list<std::shared_ptr<Token> > & detectedTokens) noexcept;

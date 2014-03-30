@@ -22,6 +22,8 @@ public:
 	Token & operator=(const Token & rhs) noexcept;
 	~Token();
 
+	const std::string getCharacter() const;
+
 	TokenType getType() noexcept;
 	bool isAlphabetSymbol() noexcept;
 	bool isOperator() noexcept;

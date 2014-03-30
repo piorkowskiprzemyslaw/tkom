@@ -11,9 +11,9 @@
 #include <syntax/Node.h>
 #include <memory>
 
-class TerminateNode: protected Node {
+class TerminateNode: public Node {
 public:
-	TerminateNode(std::shared_ptr<Token> token, std::shared_ptr<Node> parent);
+	TerminateNode(std::shared_ptr<Token> token, std::shared_ptr<Node> parent = nullptr);
 	virtual ~TerminateNode();
 
 	void nullable() const override;

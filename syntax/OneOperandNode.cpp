@@ -10,7 +10,7 @@
 /*
  * Konstruktor
  */
-OneOperandNode::OneOperandNode(std::shared_ptr<Token> token, std::shared_ptr<Node> parent = nullptr, std::shared_ptr<Node> child = nullptr) : Node(token, parent) {
+OneOperandNode::OneOperandNode(std::shared_ptr<Token> token, std::shared_ptr<Node> parent, std::shared_ptr<Node> child) : Node(token, parent) {
 	this->child = child;
 }
 

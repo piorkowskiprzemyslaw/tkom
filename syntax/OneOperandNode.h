@@ -12,12 +12,12 @@
 
 #include <memory>
 
-class OneOperandNode : protected Node {
+class OneOperandNode : public Node {
 private:
 	std::shared_ptr<Node> child;
 
 public:
-	OneOperandNode(std::shared_ptr<Token> token, std::shared_ptr<Node> parent, std::shared_ptr<Node> child);
+	OneOperandNode(std::shared_ptr<Token> token, std::shared_ptr<Node> parent = nullptr, std::shared_ptr<Node> child = nullptr);
 	virtual ~OneOperandNode();
 
 	bool addChild(std::shared_ptr<Node> child);

@@ -30,5 +30,11 @@ public:
 	virtual void first() const  = 0;
 	virtual void last() const = 0;
 	virtual void follow() const = 0;
+
+	friend std::ostream & operator<<(std::ostream & os, const Node & node)
+	{
+		os<< node.token->getCharacter();
+		return os;
+	}
 };
 #endif /* NODE_H_ */
