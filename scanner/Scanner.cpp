@@ -10,7 +10,7 @@
 /*
  * Kostruktor.
  */
-Scanner::Scanner(const std::string & regex) noexcept : regex(regex) {
+Scanner::Scanner(const std::string & regex) : regex(regex) {
 	this->regex+= "#";
 }
 
@@ -23,7 +23,7 @@ Scanner::~Scanner() { }
  * Zwraca odpowiedni TokenType dla danego znaku. Jesli zostanie podany zły
  * znak to metoda rzuca wyjątek.
  */
-Token Scanner::getTokenizedCharacterType(const char & character) noexcept {
+Token Scanner::getTokenizedCharacterType(const char & character) {
 	switch(character) {
 	case 'a' : return Token(TokenType::a,"a");
 	case 'b' : return Token(TokenType::b,"b");
@@ -73,7 +73,7 @@ void Scanner::checkCharacter(const TokenType type, const int position){
 /*
  * Przygotowuje wiadomośc o złym znaku character na pozycji position.
  */
-const std::string Scanner::prepareExceptionMessage(const int position, const char character) noexcept {
+const std::string Scanner::prepareExceptionMessage(const int position, const char character) {
 	std::string message("Wrong character found at position ");
 	char number[32];
 	sprintf(number, "%d", position);
@@ -143,14 +143,14 @@ void Scanner::tokenize(const std::string & sentence){
 /*
  * Pobranie listy
  */
-const std::list<std::shared_ptr<Token> > & Scanner::getTokens() noexcept {
+const std::list<std::shared_ptr<Token> > & Scanner::getTokens() {
 	return extractedTokens;
 }
 
 /*
  * Drukuje liste tokenów.
  */
-void Scanner::printTokenList(std::ostream & os) noexcept {
+void Scanner::printTokenList(std::ostream & os) {
 	for(auto token : extractedTokens){
 		os << *token << " ";
 	}

@@ -16,25 +16,25 @@ private:
 	TokenType type;
 	std::string character;
 public:
-	Token() noexcept;
-	Token(const TokenType type,const std::string character = "") noexcept;
-	Token(const Token & token) noexcept;
-	Token & operator=(const Token & rhs) noexcept;
+	Token();
+	Token(const TokenType type,const std::string character = "");
+	Token(const Token & token);
+	Token & operator=(const Token & rhs);
 	~Token();
 
-	const std::string getCharacter() const;
+	const std::string getCharacter();
 
-	TokenType getType() noexcept;
-	bool isAlphabetSymbol() noexcept;
-	bool isOperator() noexcept;
-	int getOperatorPrio() noexcept;
-	bool isOneOperandOperator() noexcept;
-	bool isTwoOperandOperator() noexcept;
-	bool isRLOperator() noexcept;
-	bool isLROperator() noexcept;
-	bool isOpeningParenthesis() noexcept;
-	bool isClosingParenthesis() noexcept;
-	bool isTerminate() noexcept;
+	TokenType getType();
+	bool isAlphabetSymbol();
+	bool isOperator();
+	int getOperatorPrio();
+	bool isOneOperandOperator();
+	bool isTwoOperandOperator();
+	bool isRLOperator();
+	bool isLROperator();
+	bool isOpeningParenthesis();
+	bool isClosingParenthesis();
+	bool isTerminate();
 
 	friend std::ostream & operator<<(std::ostream & os, const Token & token)
 	{

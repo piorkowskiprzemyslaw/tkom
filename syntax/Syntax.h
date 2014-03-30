@@ -36,13 +36,14 @@ private:
 	void runShutingYardAlgorithm();
 	void rpnToAST();
 	void initializeWorkingList();
+	bool checkWorkingListIterator(std::list< std::shared_ptr<Node> >::iterator iterator, const std::string & operatorType);
 
 public:
-	Syntax(const std::list<std::shared_ptr<Token> > & detectedTokens) noexcept;
+	Syntax(const std::list<std::shared_ptr<Token> > & detectedTokens);
 	~Syntax();
 	void buildTree();
-	const std::shared_ptr<Tree> getTree() noexcept;
-	const std::list< std::shared_ptr<Token> > getRPNTokens() noexcept;
+	const std::shared_ptr<Tree> getTree();
+	const std::list< std::shared_ptr<Token> > getRPNTokens();
 
 };
 

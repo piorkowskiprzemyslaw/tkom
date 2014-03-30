@@ -24,7 +24,11 @@ OneOperandNode::~OneOperandNode() { }
  * metoda zwraca false i nie zmienia ustawionego potomka.
  */
 bool OneOperandNode::addChild(std::shared_ptr<Node> child) {
-	// TODO
+	if(this->child == nullptr){
+		this->child = child;
+		this->child->setParent( std::shared_ptr<OneOperandNode>(this) );
+		return true;
+	}
 	return false;
 }
 

@@ -25,7 +25,11 @@ TwoOperandNode::~TwoOperandNode() { }
  * Dodanie lewego dziecka
  */
 bool TwoOperandNode::addLeftChild(std::shared_ptr<Node> leftChild) {
-	// TODO
+	if(this->leftChild == nullptr){
+		this->leftChild = leftChild;
+		this->leftChild->setParent( std::shared_ptr<TwoOperandNode>(this) );
+		return true;
+	}
 	return false;
 }
 
@@ -33,7 +37,11 @@ bool TwoOperandNode::addLeftChild(std::shared_ptr<Node> leftChild) {
  * Dodanie prawego dziecka
  */
 bool TwoOperandNode::addRightChild(std::shared_ptr<Node> rightChild) {
-	// TODO
+	if(this->rightChild == nullptr){
+		this->rightChild = rightChild;
+		this->rightChild->setParent( std::shared_ptr<TwoOperandNode>(this) );
+		return true;
+	}
 	return false;
 }
 

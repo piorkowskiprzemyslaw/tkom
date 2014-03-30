@@ -10,12 +10,12 @@
 /*
  * Konstruktor.
  */
-Token::Token() noexcept : type( TokenType::WRONG_TYPE ) {}
+Token::Token() : type( TokenType::WRONG_TYPE ) {}
 
 /*
  * Konstruktor w oparciu o TokenType.
  */
-Token::Token(const TokenType type, const std::string character ) noexcept : type(type), character(character) {}
+Token::Token(const TokenType type, const std::string character ) : type(type), character(character) {}
 
 /*
  * Desktruktor
@@ -25,12 +25,12 @@ Token::~Token(){}
 /*
  * Konstrutkor kopiujący.
  */
-Token::Token(const Token & token) noexcept : type(token.type), character(token.character) { }
+Token::Token(const Token & token) : type(token.type), character(token.character) { }
 
 /*
  * Operator przypisania.
  */
-Token & Token::operator=(const Token & rhs) noexcept{
+Token & Token::operator=(const Token & rhs) {
 	this->type = rhs.type;
 	this->character = rhs.character;
 	return *this;
@@ -39,21 +39,21 @@ Token & Token::operator=(const Token & rhs) noexcept{
 /*
  * Pobiera znak związany z tokenem.
  */
-const std::string Token::getCharacter() const {
+const std::string Token::getCharacter() {
 	return character;
 }
 
 /*
  * Pobiera typ tokenu.
  */
-TokenType Token::getType() noexcept{
+TokenType Token::getType(){
 	return type;
 }
 
 /*
  * Sprawdzenie czy token jest symbolem alfabetu.
  */
-bool Token::isAlphabetSymbol() noexcept {
+bool Token::isAlphabetSymbol() {
 	if ( type >= TokenType::a && type <= TokenType::DOT){
 		return true;
 	}
@@ -63,7 +63,7 @@ bool Token::isAlphabetSymbol() noexcept {
 /*
  * Sprawdzenie czy token jest operatorem.
  */
-bool Token::isOperator() noexcept {
+bool Token::isOperator() {
 	if(type >= TokenType::CONCATENATION && type <= TokenType::MULTIPLICATION){
 		return true;
 	}
@@ -73,7 +73,7 @@ bool Token::isOperator() noexcept {
 /*
  * Zwraca prio opertaora. Jeśli token nie jest operatorem zwraca -1.
  */
-int Token::getOperatorPrio() noexcept {
+int Token::getOperatorPrio() {
 
 	if(type == TokenType::PARENTHESIS_LEFT || type == TokenType::PARENTHESIS_RIGHT){
 		return 4;
@@ -97,7 +97,7 @@ int Token::getOperatorPrio() noexcept {
 /*
  * Czy operator jest jedno-argumentowy.
  */
-bool Token::isOneOperandOperator() noexcept {
+bool Token::isOneOperandOperator() {
 	if(type == TokenType::MULTIPLICATION || type == TokenType::PLUS ){
 		return true;
 	}
@@ -107,7 +107,7 @@ bool Token::isOneOperandOperator() noexcept {
 /*
  * Czy operator jest dwu-argumentowy.
  */
-bool Token::isTwoOperandOperator() noexcept {
+bool Token::isTwoOperandOperator() {
 	if(type == TokenType::OR || type == TokenType::CONCATENATION){
 		return true;
 	}
@@ -117,7 +117,7 @@ bool Token::isTwoOperandOperator() noexcept {
 /*
  * Czy operator ma wiazanie RL
  */
-bool Token::isRLOperator() noexcept {
+bool Token::isRLOperator() {
 	if(type == TokenType::MULTIPLICATION || type == TokenType::PLUS){
 		return true;
 	}
@@ -128,7 +128,7 @@ bool Token::isRLOperator() noexcept {
 /*
  * Czy operator ma wiązanie LR.
  */
-bool Token::isLROperator() noexcept{
+bool Token::isLROperator() {
 	if(type == TokenType::OR || type == TokenType::CONCATENATION){
 		return true;
 	}
@@ -138,7 +138,7 @@ bool Token::isLROperator() noexcept{
 /*
  * Czy operator jest nawiasem otwierajacym.
  */
-bool Token::isOpeningParenthesis() noexcept{
+bool Token::isOpeningParenthesis(){
 	if(type == TokenType::PARENTHESIS_LEFT)
 		return true;
 	return false;
@@ -147,7 +147,7 @@ bool Token::isOpeningParenthesis() noexcept{
 /*
  * Czy operator jest nawiasem zamykającym.
  */
-bool Token::isClosingParenthesis() noexcept {
+bool Token::isClosingParenthesis() {
 	if(type == TokenType::PARENTHESIS_RIGHT)
 		return true;
 	return false;
@@ -156,7 +156,7 @@ bool Token::isClosingParenthesis() noexcept {
 /*
  * Czy jest symbolem terminalnym.
  */
-bool Token::isTerminate() noexcept {
+bool Token::isTerminate() {
 	if(type == TokenType::TERMINATE){
 		return true;
 	}

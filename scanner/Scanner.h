@@ -28,17 +28,17 @@ private:
 	std::string regex;
 	std::list< std::shared_ptr<Token> > extractedTokens;
 
-	Token getTokenizedCharacterType(const char & character) noexcept;
+	Token getTokenizedCharacterType(const char & character);
 	void checkCharacter(const TokenType type, const int position);
-	const std::string prepareExceptionMessage(const int position, const char character) noexcept;
+	const std::string prepareExceptionMessage(const int position, const char character);
 
 public:
-	explicit Scanner(const std::string & regex) noexcept;
+	explicit Scanner(const std::string & regex);
 	~Scanner();
 	void tokenize();
 	void tokenize(const std::string & sentence);
-	const std::list< std::shared_ptr<Token> > & getTokens() noexcept;
-	void printTokenList(std::ostream & os) noexcept;
+	const std::list< std::shared_ptr<Token> > & getTokens();
+	void printTokenList(std::ostream & os);
 };
 
 #endif /* SCANNER_H_ */

@@ -10,7 +10,7 @@
 /*
  * Konstruktor
  */
-Syntax::Syntax(const std::list<std::shared_ptr<Token> > & detectedTokens) noexcept {
+Syntax::Syntax(const std::list<std::shared_ptr<Token> > & detectedTokens) {
 	tokens = detectedTokens;
 }
 
@@ -97,24 +97,58 @@ void Syntax::runShutingYardAlgorithm() {
  */
 void Syntax::rpnToAST() {
 
-	for(auto node : workingList){
+	for(auto it = workingList.begin() ; it != workingList.end() ; ++it ){
 
-		if(std::shared_ptr<TerminateNode> tn = std::dynamic_pointer_cast<TerminateNode>(node) ){
-			std::cout << "TN ";
+		if(std::shared_ptr<TerminateNode> tn = std::dynamic_pointer_cast<TerminateNode>(*it) ){
+			std::cout << "After TN" << std::endl;
+			continue;
 		}
 
-		if(std::shared_ptr<OneOperandNode> oon = std::dynamic_pointer_cast<OneOperandNode>(node) ) {
-			std::cout << "OON ";
+		if(std::shared_ptr<OneOperandNode> oon = std::dynamic_pointer_cast<OneOperandNode>(*it) ) {
+			auto oneBefore = it;
+			oneBefore--;
+
+			if(checkWorkingListIterator(oneBefore, oon->getToken()->getCharacter())){
+				oon->addChild(*oneBefore);
+				//workingList.erase(oneBefore);
+			}
+			std::cout << "After OON" << std::endl;
+			continue;
 		}
 
-		if(std::shared_ptr<TwoOperandNode> ton = std::dynamic_pointer_cast<TwoOperandNode>(node) ){
-			std::cout << "TON ";
+		if(std::shared_ptr<TwoOperandNode> ton = std::dynamic_pointer_cast<TwoOperandNode>(*it) ){
+			auto oneBefore = it, twoBefore = it;
+			oneBefore--;
+			twoBefore--;
+			twoBefore--;
+
+			if(checkWorkingListIterator(oneBefore, ton->getToken()->getCharacter() ) &&
+			   checkWorkingListIterator(twoBefore, ton->getToken()->getCharacter() )
+			   ){
+				//ton->addLeftChild(*twoBefore);
+				//ton->addRightChild(*oneBefore);
+				//workingList.erase(twoBefore);
+				//workingList.erase(oneBefore);
+			}
+			std::cout << "After TON" << std::endl;
+			continue;
 		}
 
 	}
 
-	std::cout << std::endl;
+}
 
+/*
+ * Sprawdza poprawność iteratora - czy nie przestawił się na koniec listy.
+ */
+bool Syntax::checkWorkingListIterator(std::list< std::shared_ptr<Node> >::iterator iterator, const std::string & operatorType){
+	if(iterator == workingList.end()){
+		std::string msg = "Missing operand for operator ";
+		msg += operatorType;
+
+		throw SyntaxException(msg);
+	}
+	return true;
 }
 
 /*
@@ -129,13 +163,13 @@ void Syntax::initializeWorkingList() {
 /*
  * Pobiera drzewo.
  */
-const std::shared_ptr<Tree> Syntax::getTree() noexcept {
+const std::shared_ptr<Tree> Syntax::getTree() {
 	return tree;
 }
 
 /*
  * Pobiera liste tokenów w postaci rpn.
  */
-const std::list<std::shared_ptr<Token> > Syntax::getRPNTokens() noexcept {
+const std::list<std::shared_ptr<Token> > Syntax::getRPNTokens() {
 	return rpn;
 }
