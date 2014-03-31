@@ -36,6 +36,7 @@ void syntaxTest(){
 		}
 
 		Syntax syntax(scanner.getTokens());
+
 		try{
 			syntax.buildTree();
 		} catch ( SyntaxException & e) {
@@ -45,12 +46,11 @@ void syntaxTest(){
 			continue;
 		}
 
-		/*
-		for(auto token : syntax.getRPNTokens()){
-			std::cout << (token->getCharacter()) << " ";
+		for ( auto token : syntax.getRPNTokens( ) ) {
+			std::cout << ( token->getCharacter( ) ) << " ";
 		}
 		std::cout << std::endl;
-		*/
+
 		regex.clear();
 		ifile.close();
 	}

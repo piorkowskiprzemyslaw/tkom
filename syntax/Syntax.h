@@ -36,7 +36,7 @@ private:
 	void runShutingYardAlgorithm();
 	void rpnToAST();
 	void initializeWorkingList();
-	bool checkWorkingListIterator(std::list< std::shared_ptr<Node> >::iterator iterator, const std::string & operatorType);
+	bool tryDecrementIterator(std::list< std::shared_ptr<Node> >::iterator & iterator, const std::string & operatorType);
 
 public:
 	Syntax(const std::list<std::shared_ptr<Token> > & detectedTokens);

@@ -1,136 +1,140 @@
 /*
- * Syntax.cpp
- *
- *  Created on: 28 mar 2014
- *      Author: przemek
- */
+* Syntax.cpp
+*
+*  Created on: 28 mar 2014
+*      Author: przemek
+*/
 
 #include <syntax/Syntax.h>
 
 /*
- * Konstruktor
- */
-Syntax::Syntax(const std::list<std::shared_ptr<Token> > & detectedTokens) {
+* Konstruktor
+*/
+Syntax::Syntax( const std::list<std::shared_ptr<Token> > & detectedTokens )
+{
 	tokens = detectedTokens;
 }
 
 /*
- * Destruktor.
- */
-Syntax::~Syntax() { }
+* Destruktor.
+*/
+Syntax::~Syntax( ) { }
 
 /*
- * Meotda wykonująca budowe drzewa.
- */
-void Syntax::buildTree() {
-	runShutingYardAlgorithm();
-	initializeWorkingList();
-	rpnToAST();
+* Meotda wykonująca budowe drzewa.
+*/
+void Syntax::buildTree( )
+{
+	runShutingYardAlgorithm( );
+	initializeWorkingList( );
+	rpnToAST( );
 }
 
 /*
- * Uruchamia algorytm shuting yard dla listy tokenów.
- */
-void Syntax::runShutingYardAlgorithm() {
+* Uruchamia algorytm shuting yard dla listy tokenów.
+*/
+void Syntax::runShutingYardAlgorithm( )
+{
 	std::stack< std::shared_ptr<Token> > stack;
 
-	for(auto token : tokens){
+	for ( auto token : tokens ) {
 
-		if( token->isAlphabetSymbol() ){
-			rpn.push_back(token);
+		if ( token->isAlphabetSymbol( ) ) {
+			rpn.push_back( token );
 			continue;
 		}
 
-		if( token->isLROperator() ){
-			while ( !(stack.empty() || stack.top()->isOpeningParenthesis() || stack.top()->getOperatorPrio() < token->getOperatorPrio()) ){
-				rpn.push_back(stack.top());
-				stack.pop();
+		if ( token->isLROperator( ) ) {
+			while ( !( stack.empty( ) || stack.top( )->isOpeningParenthesis( ) || stack.top( )->getOperatorPrio( ) < token->getOperatorPrio( ) ) ) {
+				rpn.push_back( stack.top( ) );
+				stack.pop( );
 			}
-			stack.push(token);
+			stack.push( token );
 			continue;
 		}
 
-		if( token->isRLOperator() ) {
-			while ( !(stack.empty() || stack.top()->isOpeningParenthesis() || stack.top()->getOperatorPrio() <= token->getOperatorPrio()) ){
-				rpn.push_back(stack.top());
-				stack.pop();
+		if ( token->isRLOperator( ) ) {
+			while ( !( stack.empty( ) || stack.top( )->isOpeningParenthesis( ) || stack.top( )->getOperatorPrio( ) <= token->getOperatorPrio( ) ) ) {
+				rpn.push_back( stack.top( ) );
+				stack.pop( );
 			}
-			stack.push(token);
+			stack.push( token );
 			continue;
 		}
 
-		if( token->isOpeningParenthesis() ) {
-			stack.push(token);
+		if ( token->isOpeningParenthesis( ) ) {
+			stack.push( token );
 			continue;
 		}
 
-		if( token->isClosingParenthesis() ) {
-			while( !( stack.top()->isOpeningParenthesis() ) ){
+		if ( token->isClosingParenthesis( ) ) {
 
-				if(stack.empty()){
-					throw SyntaxException("Opening parenthesis didn't found");
+			while ( !( stack.empty( ) ) ) {
+
+				if ( stack.top( )->isOpeningParenthesis( ) ) {
+					break;
+				} else {
+					rpn.push_back( stack.top( ) );
+					stack.pop( );
 				}
 
-				rpn.push_back(stack.top());
-				stack.pop();
 			}
-			stack.pop();
+
+			
+			if ( stack.empty( ) ) {
+				throw SyntaxException( "Opening parenthesis didn't found" );
+			}
+
+			stack.pop( );
 		}
 
 
 	}
 
-	while( !stack.empty() ){
+	while ( !stack.empty( ) ) {
 
-		if ( stack.top()->isOpeningParenthesis() ){
-			throw SyntaxException("Closing parenthesis didn't found");
+		if ( stack.top( )->isOpeningParenthesis( ) ) {
+			throw SyntaxException( "Closing parenthesis didn't found" );
 		}
 
-		rpn.push_back(stack.top());
-		stack.pop();
+		rpn.push_back( stack.top( ) );
+		stack.pop( );
 	}
 }
 
 /*
- * Uruchamia przeksztalcenie listy tokenów zapisanych w rpn
- * do postaci drzewa skladniowego.
- */
-void Syntax::rpnToAST() {
+* Uruchamia przeksztalcenie listy tokenów zapisanych w rpn
+* do postaci drzewa skladniowego.
+*/
+void Syntax::rpnToAST( )
+{
+	for ( auto it = workingList.begin( ); it != workingList.end( ); ++it ) {
 
-	for(auto it = workingList.begin() ; it != workingList.end() ; ++it ){
-
-		if(std::shared_ptr<TerminateNode> tn = std::dynamic_pointer_cast<TerminateNode>(*it) ){
-			//std::cout << "After TN" << std::endl;
+		if ( std::shared_ptr<TerminateNode> tn = std::dynamic_pointer_cast<TerminateNode>( *it ) ) {
 			continue;
 		}
 
-		if(std::shared_ptr<OneOperandNode> oon = std::dynamic_pointer_cast<OneOperandNode>(*it) ) {
+		if ( std::shared_ptr<OneOperandNode> oon = std::dynamic_pointer_cast<OneOperandNode>( *it ) ) {
 			auto oneBefore = it;
-			oneBefore--;
+			tryDecrementIterator( oneBefore, oon->getToken( )->getCharacter( ) );
 
-			if(checkWorkingListIterator(oneBefore, oon->getToken()->getCharacter())){
-				oon->addChild(*oneBefore, oon);
-				workingList.erase(oneBefore);
-			}
-			//std::cout << "After OON" << std::endl;
+			oon->addChild( *oneBefore, oon );
+			workingList.erase( oneBefore );
+
 			continue;
 		}
 
-		if(std::shared_ptr<TwoOperandNode> ton = std::dynamic_pointer_cast<TwoOperandNode>(*it) ){
+		if ( std::shared_ptr<TwoOperandNode> ton = std::dynamic_pointer_cast<TwoOperandNode>( *it ) ) {
 			auto oneBefore = it, twoBefore = it;
-			oneBefore--;
-			twoBefore--;
-			twoBefore--;
+			tryDecrementIterator( oneBefore, ton->getToken( )->getCharacter( ) );
+			tryDecrementIterator( twoBefore, ton->getToken( )->getCharacter( ) );
+			tryDecrementIterator( twoBefore, ton->getToken( )->getCharacter( ) );
 
-			if(checkWorkingListIterator(oneBefore, ton->getToken()->getCharacter() ) &&
-			   checkWorkingListIterator(twoBefore, ton->getToken()->getCharacter() )
-			   ){
-				ton->addLeftChild(*twoBefore, ton);
-				ton->addRightChild(*oneBefore, ton);
-				workingList.erase(twoBefore);
-				workingList.erase(oneBefore);
-			}
-			//std::cout << "After TON" << std::endl;
+			ton->addLeftChild( *twoBefore, ton );
+			ton->addRightChild( *oneBefore, ton );
+			workingList.erase( twoBefore );
+			workingList.erase( oneBefore );
+
 			continue;
 		}
 
@@ -139,37 +143,43 @@ void Syntax::rpnToAST() {
 }
 
 /*
- * Sprawdza poprawność iteratora - czy nie przestawił się na koniec listy.
- */
-bool Syntax::checkWorkingListIterator(std::list< std::shared_ptr<Node> >::iterator iterator, const std::string & operatorType){
-	if(iterator == workingList.end()){
+* Sprawdza poprawność iteratora - czy nie przestawił się na koniec listy.
+*/
+bool Syntax::tryDecrementIterator( std::list< std::shared_ptr<Node> >::iterator & iterator, const std::string & operatorType )
+{
+	if ( iterator == workingList.begin( ) ) {
 		std::string msg = "Missing operand for operator ";
 		msg += operatorType;
 
-		throw SyntaxException(msg);
-	}
-	return true;
-}
-
-/*
- * Inicjalizuje liste roboczą odpowiedniego typu nodami.
- */
-void Syntax::initializeWorkingList() {
-	for(auto token : rpn){
-		workingList.push_back(NodeFactory::makeNode(token));
+		throw SyntaxException( msg );
+	} else {
+		--iterator;
+		return true;
 	}
 }
 
 /*
- * Pobiera drzewo.
- */
-const std::shared_ptr<Tree> Syntax::getTree() {
+* Inicjalizuje liste roboczą odpowiedniego typu nodami.
+*/
+void Syntax::initializeWorkingList( )
+{
+	for ( auto token : rpn ) {
+		workingList.push_back( NodeFactory::makeNode( token ) );
+	}
+}
+
+/*
+* Pobiera drzewo.
+*/
+const std::shared_ptr<Tree> Syntax::getTree( )
+{
 	return tree;
 }
 
 /*
- * Pobiera liste tokenów w postaci rpn.
- */
-const std::list<std::shared_ptr<Token> > Syntax::getRPNTokens() {
+* Pobiera liste tokenów w postaci rpn.
+*/
+const std::list<std::shared_ptr<Token> > Syntax::getRPNTokens( )
+{
 	return rpn;
 }

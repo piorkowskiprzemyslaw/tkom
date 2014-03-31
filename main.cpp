@@ -18,6 +18,8 @@ extern void syntaxTest();
 
 int main(int argc, char* argv[])
 {
+	//scannerTest( );
+
 	syntaxTest();
 	
 	system( "PAUSE" );

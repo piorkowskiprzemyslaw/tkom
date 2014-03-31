@@ -31,6 +31,8 @@ private:
 	Token getTokenizedCharacterType(const char & character);
 	void checkCharacter(const TokenType type, const int position);
 	const std::string prepareExceptionMessage(const int position, const char character);
+	void checkParenthesesInRegex( );
+	void addExtrernalParentheses( );
 
 public:
 	explicit Scanner(const std::string & regex);

@@ -10,8 +10,8 @@
 /*
  * Kostruktor.
  */
-Scanner::Scanner(const std::string & regex) : regex(regex) {
-	this->regex+= "#";
+Scanner::Scanner(const std::string & regex) {
+	this->regex = regex;
 }
 
 /*
@@ -93,6 +93,9 @@ void Scanner::tokenize(){
 	Token actual;
 	Token next;
 
+	checkParenthesesInRegex( );
+	addExtrernalParentheses( );
+
 	extractedTokens.clear();
 
 	for(size_t i = 0 ; i < regex.length() - 1  ; ++i){
@@ -152,7 +155,36 @@ const std::list<std::shared_ptr<Token> > & Scanner::getTokens() {
  */
 void Scanner::printTokenList(std::ostream & os) {
 	for(auto token : extractedTokens){
-		os << *token << " ";
+		os << (*token).getCharacter() << " ";
 	}
 	os << std::endl;
+}
+
+/*
+ * Metoda sprawdzająca zbilansowanie nawiasów.
+ */
+void Scanner::checkParenthesesInRegex( )
+{
+	int counter = 0;
+
+	for ( int i = 0; i < regex.length( ); ++i ) {
+		if ( regex[i] == '(' ) ++counter;
+		if ( regex[i] == ')' ) --counter;
+
+		if ( counter < 0 ) {
+			throw ScannerException( "Not balanced parentheses!" );
+		}
+	}
+}
+
+/*
+ * Dodaje zewnętrzne nawiasy do wyrażenia regularnego aby mogło odbyć się dalsze przetwarzanie.
+ */
+void Scanner::addExtrernalParentheses( )
+{
+	std::string tmpRegex = regex;
+	regex.clear( );
+	regex += '(';
+	regex += tmpRegex;
+	regex += ")#";
 }
