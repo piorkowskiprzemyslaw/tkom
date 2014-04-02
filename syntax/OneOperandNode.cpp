@@ -33,6 +33,13 @@ bool OneOperandNode::addChild(std::shared_ptr<Node> child, std::shared_ptr<OneOp
 }
 
 /*
+ * Zwraca shared_ptr na dziecko.
+ */
+std::shared_ptr<Node> OneOperandNode::getChild() const {
+	return child;
+}
+
+/*
  * Metoda nullable.
  */
 void OneOperandNode::nullable() const {

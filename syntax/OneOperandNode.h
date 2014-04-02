@@ -21,6 +21,7 @@ public:
 	virtual ~OneOperandNode();
 
 	bool addChild(std::shared_ptr<Node> child, std::shared_ptr<OneOperandNode> parent);
+	std::shared_ptr<Node> getChild() const;
 
 	void nullable() const override;
 	void first() const override;

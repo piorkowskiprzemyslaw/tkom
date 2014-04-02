@@ -17,7 +17,7 @@ private:
 public:
 	explicit SyntaxException(const std::string & msg);
 	virtual ~SyntaxException();
-	const char* what() const override;
+	const char* what() const noexcept override;
 };
 
 #endif /* SYNTAXEXCEPTION_H_ */

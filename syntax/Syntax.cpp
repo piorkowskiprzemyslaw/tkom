@@ -10,8 +10,7 @@
 /*
 * Konstruktor
 */
-Syntax::Syntax( const std::list<std::shared_ptr<Token> > & detectedTokens )
-{
+Syntax::Syntax( const std::list<std::shared_ptr<Token> > & detectedTokens ) {
 	tokens = detectedTokens;
 }
 
@@ -23,18 +22,25 @@ Syntax::~Syntax( ) { }
 /*
 * Meotda wykonująca budowe drzewa.
 */
-void Syntax::buildTree( )
-{
+void Syntax::buildTree( ) {
 	runShutingYardAlgorithm( );
+
+	/* Debug reasons only.
+	for(auto token : this->rpn){
+		std::cout << token->getCharacter() << " ";
+	}
+	std::cout << std::endl;
+	*/
+
 	initializeWorkingList( );
 	rpnToAST( );
+	tryToInitializeTree();
 }
 
 /*
 * Uruchamia algorytm shuting yard dla listy tokenów.
 */
-void Syntax::runShutingYardAlgorithm( )
-{
+void Syntax::runShutingYardAlgorithm( ) {
 	std::stack< std::shared_ptr<Token> > stack;
 
 	for ( auto token : tokens ) {
@@ -106,8 +112,7 @@ void Syntax::runShutingYardAlgorithm( )
 * Uruchamia przeksztalcenie listy tokenów zapisanych w rpn
 * do postaci drzewa skladniowego.
 */
-void Syntax::rpnToAST( )
-{
+void Syntax::rpnToAST( ) {
 	for ( auto it = workingList.begin( ); it != workingList.end( ); ++it ) {
 
 		if ( std::shared_ptr<TerminateNode> tn = std::dynamic_pointer_cast<TerminateNode>( *it ) ) {
@@ -145,8 +150,7 @@ void Syntax::rpnToAST( )
 /*
 * Sprawdza poprawność iteratora - czy nie przestawił się na koniec listy.
 */
-bool Syntax::tryDecrementIterator( std::list< std::shared_ptr<Node> >::iterator & iterator, const std::string & operatorType )
-{
+bool Syntax::tryDecrementIterator( std::list< std::shared_ptr<Node> >::iterator & iterator, const std::string & operatorType ) {
 	if ( iterator == workingList.begin( ) ) {
 		std::string msg = "Missing operand for operator ";
 		msg += operatorType;
@@ -161,25 +165,34 @@ bool Syntax::tryDecrementIterator( std::list< std::shared_ptr<Node> >::iterator 
 /*
 * Inicjalizuje liste roboczą odpowiedniego typu nodami.
 */
-void Syntax::initializeWorkingList( )
-{
+void Syntax::initializeWorkingList( ) {
 	for ( auto token : rpn ) {
 		workingList.push_back( NodeFactory::makeNode( token ) );
 	}
 }
 
 /*
+ * O ile zlozenie nodow przebieglo pomyslnie inicjalizuje drzewo.
+ * W przeciwnym wypadku wyrzuca wyjątek.
+ */
+void Syntax::tryToInitializeTree() {
+	if( workingList.size() == 1 ) {
+		tree = std::make_shared<Tree>(workingList.front());
+	} else {
+		throw SyntaxException("Syntax tree build failed.");
+	}
+}
+
+/*
 * Pobiera drzewo.
 */
-const std::shared_ptr<Tree> Syntax::getTree( )
-{
+const std::shared_ptr<Tree> Syntax::getTree( ) {
 	return tree;
 }
 
 /*
 * Pobiera liste tokenów w postaci rpn.
 */
-const std::list<std::shared_ptr<Token> > Syntax::getRPNTokens( )
-{
+const std::list<std::shared_ptr<Token> > Syntax::getRPNTokens( ) {
 	return rpn;
 }

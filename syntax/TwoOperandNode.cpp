@@ -34,6 +34,13 @@ bool TwoOperandNode::addLeftChild(std::shared_ptr<Node> leftChild, std::shared_p
 }
 
 /*
+ * Pobranie shared_ptr'a na lewe dziecko.
+ */
+std::shared_ptr<Node> TwoOperandNode::getLeftChild() const {
+	return leftChild;
+}
+
+/*
  * Dodanie prawego dziecka
  */
 bool TwoOperandNode::addRightChild(std::shared_ptr<Node> rightChild, std::shared_ptr<TwoOperandNode> parent) {
@@ -43,6 +50,13 @@ bool TwoOperandNode::addRightChild(std::shared_ptr<Node> rightChild, std::shared
 		return true;
 	}
 	return false;
+}
+
+/*
+ * Pobranie shared_ptr'a na prawe dziecko.
+ */
+std::shared_ptr<Node> TwoOperandNode::getRightChild() const {
+	return rightChild;
 }
 
 /*

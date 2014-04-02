@@ -14,7 +14,7 @@ ScannerException::ScannerException(const std::string & msg) : msg(msg) {
 
 ScannerException::~ScannerException() { }
 
-const char* ScannerException::what() const {
+const char* ScannerException::what() const noexcept {
 	return msg.c_str();
 }
 

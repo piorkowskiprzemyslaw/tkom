@@ -163,8 +163,7 @@ void Scanner::printTokenList(std::ostream & os) {
 /*
  * Metoda sprawdzająca zbilansowanie nawiasów.
  */
-void Scanner::checkParenthesesInRegex( )
-{
+void Scanner::checkParenthesesInRegex( ){
 	int counter = 0;
 
 	for ( int i = 0; i < regex.length( ); ++i ) {
@@ -174,6 +173,10 @@ void Scanner::checkParenthesesInRegex( )
 		if ( counter < 0 ) {
 			throw ScannerException( "Not balanced parentheses!" );
 		}
+	}
+
+	if ( counter != 0 ) {
+		throw ScannerException( "Not balanced parentheses!" );
 	}
 }
 

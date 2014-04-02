@@ -21,7 +21,9 @@ public:
 	virtual ~TwoOperandNode();
 
 	bool addLeftChild(std::shared_ptr<Node> leftChild, std::shared_ptr<TwoOperandNode> parent);
+	std::shared_ptr<Node> getLeftChild() const;
 	bool addRightChild(std::shared_ptr<Node> rightChild, std::shared_ptr<TwoOperandNode> parent);
+	std::shared_ptr<Node> getRightChild() const;
 
 	void nullable() const override;
 	void first() const override;

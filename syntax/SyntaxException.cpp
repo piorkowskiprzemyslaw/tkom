@@ -23,6 +23,6 @@ SyntaxException::~SyntaxException() { }
 /*
  * Nadpisana metoda what klasy exception.
  */
-const char * SyntaxException::what() const {
+const char * SyntaxException::what() const noexcept {
 	return message.c_str();
 }

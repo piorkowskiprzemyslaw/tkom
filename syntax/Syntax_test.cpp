@@ -13,44 +13,52 @@
 #include <syntax/SyntaxException.h>
 
 extern std::string getInputTestDir(int number);
+extern std::string getOutputTestDir(int number);
 
 void syntaxTest(){
 	std::ifstream ifile;
+	std::ofstream ofile;
 	std::string regex;
 
-	for(int i = 1; i < 11 ; ++i){
+	for(int i = 1; i < 16 ; ++i){
 		ifile.open(getInputTestDir(i));
+		ofile.open(getOutputTestDir(i), std::ofstream::trunc );
 
 		std::getline(ifile,regex);
 		Scanner scanner(regex);
 
-		std::cout << regex << std::endl;
+		ofile << regex << std::endl;
 
 		try{
 		scanner.tokenize();
 		} catch (ScannerException & e) {
-			std::cout << e.what() << std::endl;
+			ofile << e.what() << std::endl;
+			ofile.close();
 			ifile.close();
 			regex.clear();
 			continue;
 		}
+
+		scanner.printTokenList(ofile);
 
 		Syntax syntax(scanner.getTokens());
 
 		try{
 			syntax.buildTree();
 		} catch ( SyntaxException & e) {
-			std::cout << e.what() << std::endl;
+			ofile << e.what() << std::endl;
+			ofile.close();
 			ifile.close();
 			regex.clear();
 			continue;
 		}
 
 		for ( auto token : syntax.getRPNTokens( ) ) {
-			std::cout << ( token->getCharacter( ) ) << " ";
+			ofile << ( token->getCharacter( ) ) << " ";
 		}
-		std::cout << std::endl;
+		ofile << std::endl;
 
+		ofile.close();
 		regex.clear();
 		ifile.close();
 	}

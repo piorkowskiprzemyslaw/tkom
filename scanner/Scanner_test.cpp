@@ -16,7 +16,7 @@ std::string getInputTestDir(int number){
 	std::string entirePath;
 	char num[32];
 	sprintf(num, "%d", number);
-	entirePath = path1 + num;
+	entirePath = path + num;
 	entirePath += ".txt";
 	return entirePath;
 }
@@ -27,7 +27,7 @@ std::string getOutputTestDir(int number){
 	std::string entirePath;
 	char num[32];
 	sprintf(num, "%d", number);
-	entirePath = path1 + num;
+	entirePath = path + num;
 	entirePath += "OUTPUT.txt";
 	return entirePath;
 }

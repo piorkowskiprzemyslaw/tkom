@@ -37,6 +37,7 @@ private:
 	void rpnToAST();
 	void initializeWorkingList();
 	bool tryDecrementIterator(std::list< std::shared_ptr<Node> >::iterator & iterator, const std::string & operatorType);
+	void tryToInitializeTree();
 
 public:
 	Syntax(const std::list<std::shared_ptr<Token> > & detectedTokens);

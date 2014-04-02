@@ -7,10 +7,14 @@
 
 #include <syntax/TerminateNode.h>
 
+unsigned int TerminateNode::counter = 0;
+
 /*
  * Konstruktor
  */
-TerminateNode::TerminateNode(std::shared_ptr<Token> token, std::shared_ptr<Node> parent) : Node(token,parent) { }
+TerminateNode::TerminateNode(std::shared_ptr<Token> token, std::shared_ptr<Node> parent) : Node(token,parent) {
+	id = ++counter;
+}
 
 /*
  * Destruktor

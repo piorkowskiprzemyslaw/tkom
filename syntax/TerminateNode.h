@@ -12,6 +12,9 @@
 #include <memory>
 
 class TerminateNode: public Node {
+private:
+	static unsigned int counter;
+	unsigned int id;
 public:
 	TerminateNode(std::shared_ptr<Token> token, std::shared_ptr<Node> parent = nullptr);
 	virtual ~TerminateNode();

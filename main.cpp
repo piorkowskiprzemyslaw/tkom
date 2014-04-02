@@ -21,8 +21,7 @@ int main(int argc, char* argv[])
 	//scannerTest( );
 
 	syntaxTest();
-	
-	system( "PAUSE" );
+
 
     return 0;
 }
