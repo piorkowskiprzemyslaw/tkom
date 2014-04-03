@@ -22,8 +22,8 @@ public:
 
 	bool addChild(std::shared_ptr<Node> child, std::shared_ptr<OneOperandNode> parent);
 	std::shared_ptr<Node> getChild() const;
-
-	void nullable() const override;
+	int height() const override;
+	bool nullable() const override;
 	void first() const override;
 	void last() const override;
 	void follow() const override;

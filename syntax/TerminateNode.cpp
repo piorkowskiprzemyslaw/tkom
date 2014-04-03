@@ -13,7 +13,7 @@ unsigned int TerminateNode::counter = 0;
  * Konstruktor
  */
 TerminateNode::TerminateNode(std::shared_ptr<Token> token, std::shared_ptr<Node> parent) : Node(token,parent) {
-	id = ++counter;
+	id = counter++;
 }
 
 /*
@@ -22,10 +22,17 @@ TerminateNode::TerminateNode(std::shared_ptr<Token> token, std::shared_ptr<Node>
 TerminateNode::~TerminateNode() { }
 
 /*
+ * Zwaraca wysokosc drzewa zaczynajacego się w tym węźle.
+ */
+int TerminateNode::height() const {
+	return 0;
+}
+
+/*
  * Metoda nullable.
  */
-void TerminateNode::nullable() const {
-	// TODO
+bool TerminateNode::nullable() const {
+	return false;
 }
 
 /*

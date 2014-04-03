@@ -21,9 +21,7 @@ public:
 	Token(const Token & token);
 	Token & operator=(const Token & rhs);
 	~Token();
-
 	const std::string getCharacter();
-
 	TokenType getType();
 	bool isAlphabetSymbol();
 	bool isOperator();
@@ -35,6 +33,10 @@ public:
 	bool isOpeningParenthesis();
 	bool isClosingParenthesis();
 	bool isTerminate();
+	bool isConcatenation();
+	bool isOr();
+	bool isPlus();
+	bool isMultiplication();
 
 	friend std::ostream & operator<<(std::ostream & os, const Token & token)
 	{

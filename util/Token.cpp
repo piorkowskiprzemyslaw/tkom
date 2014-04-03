@@ -162,3 +162,43 @@ bool Token::isTerminate() {
 	}
 	return false;
 }
+
+/*
+ * Czy jest symbolem konkatenacji.
+ */
+bool Token::isConcatenation() {
+	if(type == TokenType::CONCATENATION){
+		return true;
+	}
+	return false;
+}
+
+/*
+ * Czy jest symbolem or.
+ */
+bool Token::isOr() {
+	if(type == TokenType::OR){
+		return true;
+	}
+	return false;
+}
+
+/*
+ * Czy jest symbolem plus.
+ */
+bool Token::isPlus() {
+	if(type == TokenType::PLUS){
+		return true;
+	}
+	return false;
+}
+
+/*
+ * Czy jest symbolem multiplication
+ */
+bool Token::isMultiplication() {
+	if(type == TokenType::MULTIPLICATION ){
+		return true;
+	}
+	return false;
+}

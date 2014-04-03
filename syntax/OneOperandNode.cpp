@@ -40,10 +40,28 @@ std::shared_ptr<Node> OneOperandNode::getChild() const {
 }
 
 /*
+ * Zwraca wysokość drzewa zaczynającego się w tym węźle.
+ */
+int OneOperandNode::height() const {
+	if(child != nullptr ){
+		return child->height() + 1;
+	}
+	return 0;
+}
+
+/*
  * Metoda nullable.
  */
-void OneOperandNode::nullable() const {
-	// TODO
+bool OneOperandNode::nullable() const {
+	if( this->getToken()->isMultiplication() ){
+		return true;
+	}
+
+	if( this->getToken()->isMultiplication() ){
+		return false;
+	}
+
+	return false;
 }
 
 /*

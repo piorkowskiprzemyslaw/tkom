@@ -60,10 +60,38 @@ std::shared_ptr<Node> TwoOperandNode::getRightChild() const {
 }
 
 /*
+ * Wysokość drzewa rozpoczynającego się w tym węźle.
+ */
+int TwoOperandNode::height() const {
+	int lChild = 0;
+	int rChild = 0;
+
+	if(leftChild != nullptr){
+		lChild = leftChild->height();
+	}
+	if(rightChild != nullptr){
+		rChild = rightChild->height();
+	}
+	if(leftChild == nullptr && rightChild == nullptr){
+		return 0;
+	}
+
+	return (lChild > rChild ? lChild + 1 : rChild + 1);
+}
+
+/*
  * Metoda nullable.
  */
-void TwoOperandNode::nullable() const {
-	// TODO
+bool TwoOperandNode::nullable() const {
+	if(getToken()->isOr()){
+		return (leftChild->nullable() || rightChild->nullable());
+	}
+
+	if(getToken()->isConcatenation()){
+		return (leftChild->nullable() && rightChild->nullable());
+	}
+
+	return false;
 }
 
 /*
