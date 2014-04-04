@@ -24,9 +24,10 @@ public:
 	std::shared_ptr<Node> getChild() const;
 	int height() const override;
 	bool nullable() const override;
-	void first() const override;
-	void last() const override;
-	void follow() const override;
+	std::set< std::shared_ptr<Position>, PositionComapre> first() const override;
+	std::set< std::shared_ptr<Position>, PositionComapre> last() const override;
+	void follow(std::map< std::shared_ptr<Position>, std::set< std::shared_ptr<Position>, PositionComapre>, PositionComapre > & map) const override;
+	void initializeMap(std::map< std::shared_ptr<Position>, std::set< std::shared_ptr<Position>, PositionComapre>, PositionComapre > & map) const override;
 };
 
 #endif /* ONEOPERANDNODE_H_ */

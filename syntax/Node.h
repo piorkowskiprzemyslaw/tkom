@@ -10,8 +10,13 @@
 
 #include <iostream>
 #include <memory>
+#include <map>
+#include <set>
 
 #include <util/Token.h>
+#include <util/Position.h>
+#include <util/PositionComapre.h>
+#include <util/SetUtility.h>
 
 class Node {
 private:
@@ -25,9 +30,10 @@ public:
 	const std::shared_ptr<Token> getToken() const;
 	virtual int height() const = 0;
 	virtual bool nullable() const = 0;
-	virtual void first() const  = 0;
-	virtual void last() const = 0;
-	virtual void follow() const = 0;
+	virtual std::set<std::shared_ptr<Position>, PositionComapre> first() const  = 0;
+	virtual std::set<std::shared_ptr<Position>, PositionComapre> last() const = 0;
+	virtual void follow(std::map< std::shared_ptr<Position>, std::set< std::shared_ptr<Position>, PositionComapre>, PositionComapre > & map) const = 0;
+	virtual void initializeMap(std::map< std::shared_ptr<Position>, std::set< std::shared_ptr<Position>, PositionComapre>, PositionComapre > & map) const = 0;
 
 	friend std::ostream & operator<<(std::ostream & os, const Node & node)
 	{

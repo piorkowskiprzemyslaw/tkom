@@ -8,21 +8,26 @@
 #ifndef TERMINATENODE_H_
 #define TERMINATENODE_H_
 
-#include <syntax/Node.h>
 #include <memory>
+#include <utility>
+#include <syntax/Node.h>
+#include <util/Position.h>
 
 class TerminateNode: public Node {
 private:
 	static unsigned int counter;
 	unsigned int id;
+	std::shared_ptr<Position> position;
 public:
 	TerminateNode(std::shared_ptr<Token> token, std::shared_ptr<Node> parent = nullptr);
 	virtual ~TerminateNode();
 	int height() const override;
 	bool nullable() const override;
-	void first() const override;
-	void last() const override;
-	void follow() const override;
+	std::set< std::shared_ptr<Position>, PositionComapre> first() const override;
+	std::set< std::shared_ptr<Position>, PositionComapre> last() const override;
+	void follow(std::map< std::shared_ptr<Position>, std::set< std::shared_ptr<Position>, PositionComapre>, PositionComapre > & map) const override;
+	void initializeMap(std::map< std::shared_ptr<Position>, std::set< std::shared_ptr<Position>, PositionComapre>, PositionComapre > & map) const override;
+	std::shared_ptr<Position> getPosition() const;
 };
 
 #endif /* TERMINATENODE_H_ */

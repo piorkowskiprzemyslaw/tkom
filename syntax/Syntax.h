@@ -12,7 +12,6 @@
 #include <list>
 #include <memory>
 #include <stack>
-#include <vector>
 
 #include <util/Token.h>
 #include <syntax/Tree.h>

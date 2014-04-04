@@ -67,20 +67,30 @@ bool OneOperandNode::nullable() const {
 /*
  * Metoda first.
  */
-void OneOperandNode::first() const {
-	// TODO
+std::set< std::shared_ptr<Position>, PositionComapre> OneOperandNode::first() const {
+	return child->first();
 }
 
 /*
  * Metoda last.
  */
-void OneOperandNode::last() const {
-	// TODO
+std::set< std::shared_ptr<Position>, PositionComapre> OneOperandNode::last() const {
+	return child->last();
 }
 
 /*
  * Metoda follow.
  */
-void OneOperandNode::follow() const {
-	// TODO
+void OneOperandNode::follow(std::map< std::shared_ptr<Position>, std::set< std::shared_ptr<Position>, PositionComapre>, PositionComapre > & map) const {
+	for(auto position : last()){
+		SetUtility::addSets(map[position], first());
+	}
+	child->follow(map);
+}
+
+/*
+ * Inicjalizowanie mapy.
+ */
+void OneOperandNode::initializeMap(std::map< std::shared_ptr<Position>, std::set< std::shared_ptr<Position>, PositionComapre>, PositionComapre > & map) const {
+	child->initializeMap(map);
 }

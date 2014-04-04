@@ -13,7 +13,9 @@
 Tree::Tree(std::shared_ptr<Node> root) {
 	this->root = root;
 	this->height = root->height();
-	std::cout << "Creating tree : Height = " << height << std::endl;
+	initializeFollows();
+	this->root->follow(follows);
+	//std::cout << "Creating tree : Height = " << height << std::endl;
 }
 
 /*
@@ -21,3 +23,9 @@ Tree::Tree(std::shared_ptr<Node> root) {
  */
 Tree::~Tree() { }
 
+/*
+ * Inicjalizacja mapy follows dla każdego z nodów.
+ */
+void Tree::initializeFollows() {
+	root->initializeMap(follows);
+}

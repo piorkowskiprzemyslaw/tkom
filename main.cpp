@@ -19,9 +19,6 @@ extern void syntaxTest();
 int main(int argc, char* argv[])
 {
 	//scannerTest( );
-
 	syntaxTest();
-
-
     return 0;
 }
