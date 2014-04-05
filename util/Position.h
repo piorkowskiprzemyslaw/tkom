@@ -24,6 +24,12 @@ public:
 	unsigned int getNumber() const;
 	std::shared_ptr<Token> getToken() const;
 
+	friend std::ostream & operator<<(std::ostream & os, const Position & position)
+	{
+		os << "N: " << position.number << "  C: " << *(position.token);
+		return os;
+	}
+
 };
 
 #endif /* POSITION_H_ */

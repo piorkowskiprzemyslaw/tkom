@@ -57,7 +57,7 @@ bool OneOperandNode::nullable() const {
 		return true;
 	}
 
-	if( this->getToken()->isMultiplication() ){
+	if( this->getToken()->isPlus() ){
 		return false;
 	}
 
@@ -82,8 +82,9 @@ std::set< std::shared_ptr<Position>, PositionComapre> OneOperandNode::last() con
  * Metoda follow.
  */
 void OneOperandNode::follow(std::map< std::shared_ptr<Position>, std::set< std::shared_ptr<Position>, PositionComapre>, PositionComapre > & map) const {
+	auto firstSet = first();
 	for(auto position : last()){
-		SetUtility::addSets(map[position], first());
+		SetUtility::addSets(map[position], firstSet);
 	}
 	child->follow(map);
 }

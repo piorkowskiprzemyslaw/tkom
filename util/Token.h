@@ -40,7 +40,7 @@ public:
 
 	friend std::ostream & operator<<(std::ostream & os, const Token & token)
 	{
-		os.operator<<(token.character.c_str());
+		os << token.character;
 		return os;
 	}
 };

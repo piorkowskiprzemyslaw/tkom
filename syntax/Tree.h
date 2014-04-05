@@ -30,6 +30,7 @@ private:
 public:
 	Tree(std::shared_ptr<Node> root);
 	~Tree();
+	void printFollows() const;
 };
 
 #endif /* TREE_H_ */

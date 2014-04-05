@@ -101,7 +101,7 @@ std::set< std::shared_ptr<Position>, PositionComapre> TwoOperandNode::first() co
 	std::set< std::shared_ptr<Position>, PositionComapre > returned;
 	if(getToken()->isOr()){
 		SetUtility::addSets(returned, leftChild->first());
-		SetUtility::addSets(returned,rightChild->first());
+		SetUtility::addSets(returned, rightChild->first());
 	} else if( getToken()->isConcatenation()){
 		if(leftChild->nullable()){
 			SetUtility::addSets(returned, leftChild->first());
@@ -121,9 +121,9 @@ std::set< std::shared_ptr<Position>, PositionComapre> TwoOperandNode::last() con
 	std::set< std::shared_ptr<Position>, PositionComapre > returned;
 	if(getToken()->isOr()){
 		SetUtility::addSets(returned, leftChild->last());
-		SetUtility::addSets(returned,rightChild->last());
+		SetUtility::addSets(returned, rightChild->last());
 	} else if( getToken()->isConcatenation()){
-		if(leftChild->nullable()){
+		if(rightChild->nullable()){
 			SetUtility::addSets(returned, rightChild->last());
 			SetUtility::addSets(returned, leftChild->last());
 		} else {

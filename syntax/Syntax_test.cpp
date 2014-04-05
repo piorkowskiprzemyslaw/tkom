@@ -20,7 +20,7 @@ void syntaxTest(){
 	std::ofstream ofile;
 	std::string regex;
 
-	for(int i = 1; i < 16 ; ++i){
+	for(int i = 2; i < 3 ; ++i){
 		ifile.open(getInputTestDir(i));
 		ofile.open(getOutputTestDir(i), std::ofstream::trunc );
 
