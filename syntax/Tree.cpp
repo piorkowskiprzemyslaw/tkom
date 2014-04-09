@@ -15,7 +15,7 @@ Tree::Tree(std::shared_ptr<Node> root) {
 	this->height = root->height();
 	initializeFollows();
 	this->root->follow(follows);
-	printFollows();
+	//printFollows();
 }
 
 /*
@@ -49,4 +49,11 @@ void Tree::printFollows() const {
  */
 std::shared_ptr<Node> Tree::getRoot() const {
 	return root;
+}
+
+/*
+ * Pobranie referencji do follows.
+ */
+std::map< std::shared_ptr<Position>, std::set<std::shared_ptr<Position>, PositionComapre >, PositionComapre > & Tree::getFollows() {
+	return follows;
 }

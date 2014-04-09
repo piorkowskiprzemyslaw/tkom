@@ -30,7 +30,25 @@ public:
 	void addTransition(std::pair<TokenType, std::weak_ptr<State> > transition);
 	bool operator==(const State & state) const;
 	bool operator==(const std::set< std::shared_ptr<Position>, PositionComapre> & set) const;
+	const std::set< std::shared_ptr<Position>, PositionComapre > & getFollowedPositions() const;
 	std::shared_ptr<State> goToState(TokenType token);
+
+	friend std::ostream & operator<<(std::ostream & os, const State & state)
+	{
+		os << "ID = " << state.id << std::endl;
+		os << "\tPositions: ";
+		for(auto position : state.positions){
+			os << *position << "; ";
+		}
+		os << std::endl;
+
+		os << "\tTransitions: " << std::endl;
+		for(auto transition : state.transitions){
+			os <<"\t" << static_cast<int>(transition.first) << " => " << (transition.second.lock()->id) << std::endl;
+		}
+
+		return os;
+	}
 };
 
 #endif /* STATE_H_ */

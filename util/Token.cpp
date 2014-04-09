@@ -54,7 +54,7 @@ TokenType Token::getType(){
  * Sprawdzenie czy token jest symbolem alfabetu.
  */
 bool Token::isAlphabetSymbol() {
-	if ( type >= TokenType::a && type <= TokenType::DOT){
+	if ( type >= TokenType::a && type <= TokenType::TERMINATE){
 		return true;
 	}
 	return false;

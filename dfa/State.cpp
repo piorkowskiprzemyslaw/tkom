@@ -38,3 +38,11 @@ bool State::operator==(const std::set< std::shared_ptr<Position>, PositionComapr
 
 	return true;
 }
+
+const std::set< std::shared_ptr<Position>, PositionComapre > & State::getFollowedPositions() const {
+	return positions;
+}
+
+void State::addTransition( std::pair< TokenType, std::weak_ptr<State> > transition){
+	transitions.emplace(transition);
+}

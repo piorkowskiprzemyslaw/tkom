@@ -17,20 +17,24 @@ DFA::~DFA() { }
 void DFA::buildDFA() {
 	states.emplace_back( std::make_shared<State>( tree->getRoot()->first() ) );
 	std::set<std::shared_ptr<Position>, PositionComapre> workingSet;
+	auto & follows = tree->getFollows();
 
 	for(auto state : states) {
+		for(auto token = 0 ; token <= static_cast<int>(TokenType::DOT) ; ++token) {
 
+			for(auto pos : state->getFollowedPositions()){
+				if(pos->getToken()->getType() == static_cast<TokenType>(token) ) {
+					SetUtility::addSets(workingSet, follows[pos]);
+				}
+			}
 
-		// dla każdego symbolu wejściowego 'a'
-		// jeśli pozycja p w state zawiera 'a' to dodaj
-		// follow(p) do tymzcasowego zbioru
+			if(! workingSet.empty() ) {
+				state->addTransition( std::make_pair(static_cast<TokenType>(token), addToStates(workingSet)));
+				workingSet.clear();
+			}
 
-		if(! workingSet.empty() ) {
-
-			//state->addTransition(std::make_pair())
-
-			workingSet.clear();
 		}
+
 	}
 
 }
@@ -39,14 +43,14 @@ void DFA::buildDFA() {
  * Dodaj stan reprezentowany za pomocą set do zbioru stanów i zwróć shared_ptr na ten stan.
  * Jeśli istnieje już taki stan to nie dodawaj tylko zwróc shared_ptr na ten stan.
  */
-std::shared_ptr<State> DFA::addToStates(const std::set< std::shared_ptr<Position>, PositionComapre > & set) {
+std::shared_ptr<State> DFA::addToStates(std::set< std::shared_ptr<Position>, PositionComapre > & set) {
 
 	for(auto state : states){
-		if( state == set ){
+		if( *state == set ){
 			return state;
 		}
 	}
 	// nie ma takiego stanu w juz istniejącym zbiorze stanów.
-	states.emplace_back(set);
+	states.emplace_back( std::make_shared<State>(set) );
 	return states.back();
 }

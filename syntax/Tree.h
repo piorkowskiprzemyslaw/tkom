@@ -31,6 +31,7 @@ public:
 	Tree(std::shared_ptr<Node> root);
 	~Tree();
 	std::shared_ptr<Node> getRoot() const;
+	std::map< std::shared_ptr<Position>, std::set<std::shared_ptr<Position>, PositionComapre >, PositionComapre > & getFollows();
 	void printFollows() const;
 };
 

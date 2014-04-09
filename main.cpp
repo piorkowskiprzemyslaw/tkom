@@ -22,10 +22,12 @@
 
 extern void scannerTest();
 extern void syntaxTest();
+extern void dfaTest();
 
 int main(int argc, char* argv[])
 {
 	//scannerTest( );
-	syntaxTest();
+	//syntaxTest();
+	dfaTest();
     return 0;
 }
