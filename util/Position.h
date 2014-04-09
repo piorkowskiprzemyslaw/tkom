@@ -13,11 +13,12 @@
 
 class Position {
 private:
+	static unsigned int counter;
 	unsigned int number;
 	std::shared_ptr<Token> token;
 
 public:
-	Position(const unsigned int number, const std::shared_ptr<Token> token);
+	Position(const std::shared_ptr<Token> token);
 	~Position();
 	bool operator<(const Position & rhs) const;
 	bool operator==(const Position & rhs) const;

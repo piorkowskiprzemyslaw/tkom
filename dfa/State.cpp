@@ -7,12 +7,34 @@
 
 #include <dfa/State.h>
 
-State::State(int id) {
-	// TODO Auto-generated constructor stub
+unsigned int State::idGenerator = 0;
 
+State::State(std::set< std::shared_ptr<Position>, PositionComapre > & set) {
+	id = idGenerator++;
+	std::swap(set,positions);
 }
 
-State::~State() {
-	// TODO Auto-generated destructor stub
+State::State(std::set< std::shared_ptr<Position>, PositionComapre > && set) {
+	id = idGenerator++;
+	positions = std::move(set);
 }
 
+State::~State() { }
+
+bool State::operator==(const State & state) const {
+	if(id == state.id)
+		return true;
+	return false;
+}
+
+bool State::operator==(const std::set< std::shared_ptr<Position>, PositionComapre> & set) const {
+	if(positions.size() != set.size())
+		return false;
+
+	for(auto element : positions){
+		if(set.find(element) == set.end())
+			return false;
+	}
+
+	return true;
+}

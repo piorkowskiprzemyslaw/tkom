@@ -15,8 +15,6 @@
 
 class TerminateNode: public Node {
 private:
-	static unsigned int counter;
-	unsigned int id;
 	std::shared_ptr<Position> position;
 public:
 	TerminateNode(std::shared_ptr<Token> token, std::shared_ptr<Node> parent = nullptr);

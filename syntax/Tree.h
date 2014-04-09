@@ -30,6 +30,7 @@ private:
 public:
 	Tree(std::shared_ptr<Node> root);
 	~Tree();
+	std::shared_ptr<Node> getRoot() const;
 	void printFollows() const;
 };
 

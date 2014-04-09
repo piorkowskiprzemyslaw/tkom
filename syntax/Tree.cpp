@@ -15,6 +15,7 @@ Tree::Tree(std::shared_ptr<Node> root) {
 	this->height = root->height();
 	initializeFollows();
 	this->root->follow(follows);
+	printFollows();
 }
 
 /*
@@ -41,4 +42,11 @@ void Tree::printFollows() const {
 		}
 		std::cout << std::endl;
 	}
+}
+
+/*
+ * Pobranie korzenia drzewa.
+ */
+std::shared_ptr<Node> Tree::getRoot() const {
+	return root;
 }

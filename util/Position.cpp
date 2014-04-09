@@ -7,8 +7,10 @@
 
 #include <util/Position.h>
 
-Position::Position(const unsigned int number, const std::shared_ptr<Token> token) {
-	this->number = number;
+unsigned int Position::counter = 0;
+
+Position::Position(const std::shared_ptr<Token> token) {
+	this->number = counter++;
 	this->token = token;
 }
 
