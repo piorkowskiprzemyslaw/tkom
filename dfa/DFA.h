@@ -13,6 +13,7 @@
 #include <list>
 
 #include <dfa/State.h>
+#include <dfa/DFAException.h>
 #include <syntax/Tree.h>
 #include <syntax/Node.h>
 #include <util/TokenType.h>
@@ -21,7 +22,6 @@
 class DFA {
 private:
 	std::shared_ptr<Tree> tree;
-	std::shared_ptr<State> entrance;
 	std::list< std::shared_ptr<State> > states;
 
 	void buildDFA();
@@ -30,7 +30,7 @@ private:
 public:
 	DFA(const std::shared_ptr<Tree> tree);
 	~DFA();
-	bool checkWord(const std::string word);
+	bool checkWord(const std::list<std::shared_ptr<Token> > & tokens);
 
 	friend std::ostream & operator<<(std::ostream & os, const DFA & dfa)
 	{

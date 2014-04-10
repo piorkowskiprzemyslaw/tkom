@@ -15,7 +15,6 @@ Tree::Tree(std::shared_ptr<Node> root) {
 	this->height = root->height();
 	initializeFollows();
 	this->root->follow(follows);
-	//printFollows();
 }
 
 /*

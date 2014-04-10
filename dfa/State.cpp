@@ -46,3 +46,24 @@ const std::set< std::shared_ptr<Position>, PositionComapre > & State::getFollowe
 void State::addTransition( std::pair< TokenType, std::weak_ptr<State> > transition){
 	transitions.emplace(transition);
 }
+
+std::shared_ptr<State> State::goToState(TokenType token) {
+	auto iterator = transitions.find(token);
+
+	if(iterator == transitions.end()){
+		throw DFAException("Unhandled transistion");
+	}
+
+	return iterator->second.lock();
+}
+
+bool State::isTerminateState() const {
+
+	for(auto position : positions){
+		if(position->getToken()->isTerminate()){
+			return true;
+		}
+	}
+
+	return false;
+}

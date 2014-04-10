@@ -15,6 +15,7 @@
 
 #include <util/TokenType.h>
 #include <util/PositionComapre.h>
+#include <dfa/DFAException.h>
 
 class State {
 private:
@@ -32,6 +33,7 @@ public:
 	bool operator==(const std::set< std::shared_ptr<Position>, PositionComapre> & set) const;
 	const std::set< std::shared_ptr<Position>, PositionComapre > & getFollowedPositions() const;
 	std::shared_ptr<State> goToState(TokenType token);
+	bool isTerminateState() const;
 
 	friend std::ostream & operator<<(std::ostream & os, const State & state)
 	{

@@ -21,7 +21,7 @@ void dfaTest(){
 	std::ofstream ofile;
 	std::string regex;
 
-	for(int i = 2; i < 3 ; ++i){
+	for(int i = 4; i < 5 ; ++i){
 		ifile.open(getInputTestDir(i));
 		ofile.open(getOutputTestDir(i), std::ofstream::trunc );
 

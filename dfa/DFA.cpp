@@ -36,7 +36,6 @@ void DFA::buildDFA() {
 		}
 
 	}
-
 }
 
 /*
@@ -53,4 +52,26 @@ std::shared_ptr<State> DFA::addToStates(std::set< std::shared_ptr<Position>, Pos
 	// nie ma takiego stanu w juz istniejącym zbiorze stanów.
 	states.emplace_back( std::make_shared<State>(set) );
 	return states.back();
+}
+
+/*
+ * Sprawdza czy sekwencja tokenów nalezy do jezyka opisywanego przez automat.
+ */
+bool DFA::checkWord(const std::list<std::shared_ptr<Token> > & tokens) {
+	auto actualState = states.front();
+
+	for(auto token : tokens){
+
+		try {
+			actualState = actualState->goToState(token->getType());
+		} catch (DFAException & e) {
+			return false;
+		}
+	}
+
+	if(actualState->isTerminateState()){
+		return true;
+	}
+
+	return false;
 }
