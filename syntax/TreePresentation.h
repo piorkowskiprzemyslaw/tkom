@@ -27,8 +27,6 @@ private:
 	unsigned int height;
 	ogdf::Graph graph;
 	ogdf::GraphAttributes ga;
-	std::vector<int> rank;
-
 
 	void createGraph();
 	void addLayout();

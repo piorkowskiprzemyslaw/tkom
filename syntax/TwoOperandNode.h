@@ -30,7 +30,7 @@ public:
 	std::set< std::shared_ptr<Position>, PositionComapre> last() const override;
 	void follow(std::map< std::shared_ptr<Position>, std::set< std::shared_ptr<Position>, PositionComapre>, PositionComapre > & map) const override;
 	void initializeMap(std::map< std::shared_ptr<Position>, std::set< std::shared_ptr<Position>, PositionComapre>, PositionComapre > & map) const override;
-	void createTreeReprezentation(ogdf::Graph & graph, ogdf::GraphAttributes & ga, ogdf::node * parent, std::vector<int> & rank) const override;
+	void createTreeReprezentation(ogdf::Graph & graph, ogdf::GraphAttributes & ga, ogdf::node * parent) const override;
 };
 
 #endif /* TWOOPERANDNODE_H_ */

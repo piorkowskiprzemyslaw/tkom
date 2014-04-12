@@ -37,6 +37,7 @@ public:
 	bool isOr();
 	bool isPlus();
 	bool isMultiplication();
+	bool isDot();
 
 	friend std::ostream & operator<<(std::ostream & os, const Token & token)
 	{

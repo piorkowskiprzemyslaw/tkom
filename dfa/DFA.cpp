@@ -22,8 +22,8 @@ void DFA::buildDFA() {
 	for(auto state : states) {
 		for(auto token = 0 ; token <= static_cast<int>(TokenType::DOT) ; ++token) {
 
-			for(auto pos : state->getFollowedPositions()){
-				if(pos->getToken()->getType() == static_cast<TokenType>(token) ) {
+			for(auto pos : state->getFollowedPositions()) {
+				if(pos->getToken()->getType() == static_cast<TokenType>(token) || pos->getToken()->isDot() ) {
 					SetUtility::addSets(workingSet, follows[pos]);
 				}
 			}

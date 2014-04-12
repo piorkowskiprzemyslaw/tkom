@@ -99,7 +99,7 @@ void OneOperandNode::initializeMap(std::map< std::shared_ptr<Position>, std::set
 /*
  * Reprezentacja drzewa w postaci grafu.
  */
-void OneOperandNode::createTreeReprezentation(ogdf::Graph & graph, ogdf::GraphAttributes & ga, ogdf::node * parent, std::vector<int> & rank) const {
+void OneOperandNode::createTreeReprezentation(ogdf::Graph & graph, ogdf::GraphAttributes & ga, ogdf::node * parent) const {
 	ogdf::node me = graph.newNode();
 
 	ga.labelNode(me) = ogdf::String( getToken()->getCharacter().c_str() );
@@ -110,7 +110,6 @@ void OneOperandNode::createTreeReprezentation(ogdf::Graph & graph, ogdf::GraphAt
 	ga.height(me) = 35.0;
 	ga.width(me) = 60.0;
 	ga.nodePattern(me) = ogdf::GraphAttributes::BrushPattern::bpSolid;
-	rank.push_back(height());
 
 	if(parent != nullptr){
 		ogdf::edge e = graph.newEdge(*parent, me);
@@ -118,5 +117,5 @@ void OneOperandNode::createTreeReprezentation(ogdf::Graph & graph, ogdf::GraphAt
 		ga.colorEdge(e) = "#000000";
 	}
 
-	child->createTreeReprezentation(graph, ga, &me, rank);
+	child->createTreeReprezentation(graph, ga, &me);
 }

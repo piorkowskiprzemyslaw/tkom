@@ -202,3 +202,13 @@ bool Token::isMultiplication() {
 	}
 	return false;
 }
+
+/*
+ * Czy jest symbolem kropki.
+ */
+bool Token::isDot() {
+	if(type == TokenType::DOT ){
+		return true;
+	}
+	return false;
+}

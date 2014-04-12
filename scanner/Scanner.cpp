@@ -110,6 +110,7 @@ void Scanner::tokenize(){
 		if( ( actual.isAlphabetSymbol() && next.isAlphabetSymbol() ) ||
 			( actual.isAlphabetSymbol() && next.isOpeningParenthesis() ) ||
 			( actual.isAlphabetSymbol() && next.isTerminate() ) ||
+			( actual.isClosingParenthesis() && next.isOpeningParenthesis() ) ||
 			( actual.isClosingParenthesis() && next.isAlphabetSymbol() ) ||
 			( actual.isClosingParenthesis() && next.isTerminate() ) ||
 			( actual.isOneOperandOperator() && next.isAlphabetSymbol() ) ||

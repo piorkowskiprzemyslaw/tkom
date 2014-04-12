@@ -158,7 +158,7 @@ void TwoOperandNode::initializeMap(std::map< std::shared_ptr<Position>, std::set
 /*
  * Reprezentacja drzewa w postaci grafu.
  */
-void TwoOperandNode::createTreeReprezentation(ogdf::Graph & graph, ogdf::GraphAttributes & ga, ogdf::node * parent, std::vector<int> & rank) const {
+void TwoOperandNode::createTreeReprezentation(ogdf::Graph & graph, ogdf::GraphAttributes & ga, ogdf::node * parent) const {
 
 	ogdf::node me = graph.newNode();
 
@@ -170,7 +170,6 @@ void TwoOperandNode::createTreeReprezentation(ogdf::Graph & graph, ogdf::GraphAt
 	ga.width(me) = 60.0;
 	ga.colorNode(me) = "#add8e6";
 	ga.nodePattern(me) = ogdf::GraphAttributes::BrushPattern::bpSolid;
-	rank.push_back(height());
 
 	if(parent != nullptr){
 		ogdf::edge e = graph.newEdge(*parent, me);
@@ -178,6 +177,6 @@ void TwoOperandNode::createTreeReprezentation(ogdf::Graph & graph, ogdf::GraphAt
 		ga.colorEdge(e) = "#000000";
 	}
 
-	rightChild->createTreeReprezentation(graph, ga, &me, rank);
-	leftChild->createTreeReprezentation(graph, ga, &me, rank);
+	rightChild->createTreeReprezentation(graph, ga, &me);
+	leftChild->createTreeReprezentation(graph, ga, &me);
 }

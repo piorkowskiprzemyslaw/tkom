@@ -75,7 +75,7 @@ std::shared_ptr<Position> TerminateNode::getPosition() const {
 /*
  * Reprezentacja drzewa w postaci grafu.
  */
-void TerminateNode::createTreeReprezentation(ogdf::Graph & graph, ogdf::GraphAttributes & ga, ogdf::node * parent, std::vector<int> & rank) const {
+void TerminateNode::createTreeReprezentation(ogdf::Graph & graph, ogdf::GraphAttributes & ga, ogdf::node * parent) const {
 	ogdf::node me = graph.newNode();
 
 	ga.labelNode(me) = ogdf::String( getToken()->getCharacter().c_str() );
@@ -86,7 +86,6 @@ void TerminateNode::createTreeReprezentation(ogdf::Graph & graph, ogdf::GraphAtt
 	ga.height(me) = 35.0;
 	ga.width(me) = 60.0;
 	ga.nodePattern(me) = ogdf::GraphAttributes::BrushPattern::bpSolid;
-	rank.push_back(height());
 
 	if(parent != nullptr){
 		ogdf::edge e = graph.newEdge(*parent, me);

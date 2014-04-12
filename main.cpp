@@ -18,6 +18,8 @@
 #include <syntax/SyntaxException.h>
 #include <dfa/DFA.h>
 
+// print dfa information to specified file.
+bool SHOW_DFA = false;
 // print tree graph after creation.
 bool SHOW_TREE = false;
 // regex
@@ -32,6 +34,7 @@ int main(int argc, char* argv[])
 {
 	std::string regex;
 	std::string fileName;
+	std::string dfaFileName;
 
 	for( int i = 1 ; i < argc ; ++i){
 		if( strcmp(argv[i], "-r") == 0 ){
@@ -48,6 +51,11 @@ int main(int argc, char* argv[])
 			SHOW_TREE = true;
 			continue;
 		}
+		if( strcmp(argv[i], "-sa") == 0 ) {
+			SHOW_DFA = true;
+			dfaFileName = argv[++i];
+			continue;
+		}
 
 		HELP = true;
 		break;
@@ -62,6 +70,8 @@ int main(int argc, char* argv[])
 		std::cout << " -r   po tej faldze podac wyrazenie regularne." << std::endl;
 		std::cout << " -st  flaga oznaczająca wygenerowanie pliku z graficznym przedstawieniem" << std::endl;
 		std::cout << "      drzewa rozbioru wyrazenia regularnego." << std::endl;
+		std::cout << " -sa  flaga oznaczająca wygenerowanie pliku z tekstowym przedstawieniem" << std::endl;
+		std::cout << "      automatu wyrazenia regularnego." << std::endl;
 
 		return 0;
 	}
@@ -119,6 +129,13 @@ int main(int argc, char* argv[])
 
 	if(SHOW_TREE){
 		syntax.showTree();
+	}
+
+	if(SHOW_DFA){
+		std::ofstream file;
+		file.open(dfaFileName);
+		file << dfa;
+		file.close();
 	}
 
     return 0;
