@@ -196,3 +196,11 @@ const std::shared_ptr<Tree> Syntax::getTree( ) {
 const std::list<std::shared_ptr<Token> > Syntax::getRPNTokens( ) {
 	return rpn;
 }
+
+/*
+ * Za pomocą biblioteki ogdf pokazuje drzewo.
+ */
+void Syntax::showTree() const {
+	TreePresentation treePresentation(tree);
+	treePresentation.show();
+}

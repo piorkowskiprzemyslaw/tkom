@@ -20,6 +20,7 @@
 #include <syntax/TerminateNode.h>
 #include <syntax/OneOperandNode.h>
 #include <syntax/TwoOperandNode.h>
+#include <syntax/TreePresentation.h>
 
 /*
  * Klasa odpowiedzialna za kontrolowanie poprawności składni przekazanych
@@ -44,6 +45,7 @@ public:
 	void buildTree();
 	const std::shared_ptr<Tree> getTree();
 	const std::list< std::shared_ptr<Token> > getRPNTokens();
+	void showTree() const;
 
 };
 

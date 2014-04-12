@@ -12,6 +12,9 @@
 #include <memory>
 #include <map>
 #include <set>
+#include <vector>
+#include <ogdf/basic/Graph.h>
+#include <ogdf/basic/GraphAttributes.h>
 
 #include <util/Token.h>
 #include <util/Position.h>
@@ -34,6 +37,7 @@ public:
 	virtual std::set<std::shared_ptr<Position>, PositionComapre> last() const = 0;
 	virtual void follow(std::map< std::shared_ptr<Position>, std::set< std::shared_ptr<Position>, PositionComapre>, PositionComapre > & map) const = 0;
 	virtual void initializeMap(std::map< std::shared_ptr<Position>, std::set< std::shared_ptr<Position>, PositionComapre>, PositionComapre > & map) const = 0;
+	virtual void createTreeReprezentation(ogdf::Graph & graph, ogdf::GraphAttributes & ga, ogdf::node * parent, std::vector<int> & rank) const = 0;
 
 	friend std::ostream & operator<<(std::ostream & os, const Node & node)
 	{

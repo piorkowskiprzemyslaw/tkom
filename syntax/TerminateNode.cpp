@@ -71,3 +71,26 @@ void TerminateNode::initializeMap(std::map< std::shared_ptr<Position>, std::set<
 std::shared_ptr<Position> TerminateNode::getPosition() const {
 	return position;
 }
+
+/*
+ * Reprezentacja drzewa w postaci grafu.
+ */
+void TerminateNode::createTreeReprezentation(ogdf::Graph & graph, ogdf::GraphAttributes & ga, ogdf::node * parent, std::vector<int> & rank) const {
+	ogdf::node me = graph.newNode();
+
+	ga.labelNode(me) = ogdf::String( getToken()->getCharacter().c_str() );
+	ga.templateNode(me) = "oreas:std:rect simple";
+	ga.nodeLine(me) = "#4682b4";
+	ga.colorNode(me) = "#add8e6";
+	ga.lineWidthNode(me) = 2;
+	ga.height(me) = 35.0;
+	ga.width(me) = 60.0;
+	ga.nodePattern(me) = ogdf::GraphAttributes::BrushPattern::bpSolid;
+	rank.push_back(height());
+
+	if(parent != nullptr){
+		ogdf::edge e = graph.newEdge(*parent, me);
+		ga.styleEdge(e) = ogdf::GraphAttributes::EdgeStyle::esSolid;
+		ga.colorEdge(e) = "#000000";
+	}
+}

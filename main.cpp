@@ -44,7 +44,7 @@ int main(int argc, char* argv[])
 			fileName = argv[++i];
 			continue;
 		}
-		if( strcmp(argv[i], "-v") == 0 ) {
+		if( strcmp(argv[i], "-st") == 0 ) {
 			SHOW_TREE = true;
 			continue;
 		}
@@ -115,6 +115,10 @@ int main(int argc, char* argv[])
 			}
 
 		}
+	}
+
+	if(SHOW_TREE){
+		syntax.showTree();
 	}
 
     return 0;
